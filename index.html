@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAEDGE AI AUTOMATIONS - Automatic Visual Inspection System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff6600;
+            --secondary: #cc3300;
+            --accent: #666666;
+            --dark: #2d2d2d;
+            --light: #f8f8f8;
+            --white: #ffffff;
+            --success: #36b37e;
+            --gradient: linear-gradient(135deg, #ff9900, #cc3300);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+        
+        .logo-text span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 30px;
+            flex-shrink: 0;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .primary-button {
+            background-color: var(--white);
+            color: var(--primary);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--white);
+            transition: background-color 0.3s;
+        }
+        
+        .primary-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .modal-content h2 {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .modal-content input,
+        .modal-content textarea {
+            padding: 10px;
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .modal-content textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .modal-content button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .modal-content button:hover {
+            background-color: var(--secondary);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: #505f79;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background-color: rgba(255, 102, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+        
+        .feature-icon i {
+            font-size: 40px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: #505f79;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -30px;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 700;
+            margin: 0 auto 30px;
+        }
+        
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .step p {
+            color: #505f79;
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .team-member {
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .member-photo {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .member-photo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: var(--light);
+        }
+        
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s;
+        }
+        
+        .member-photo:hover .photo-overlay {
+            opacity: 1;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .member-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .member-title {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .member-bio {
+            font-size: 14px;
+            color: #505f79;
+            margin-bottom: 15px;
+        }
+        
+        /* Industries Section */
+        .industries {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .industry-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .industry-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .industry-image {
+            height: 200px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .industry-card:nth-child(1) .industry-image {
+            background-color: #ffebe6;
+        }
+        
+        .industry-card:nth-child(2) .industry-image {
+            background-color: #e3fcef;
+        }
+        
+        .industry-card:nth-child(3) .industry-image {
+            background-color: #deebff;
+        }
+        
+        .industry-content {
+            padding: 30px;
+        }
+        
+        .industry-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .industry-content p {
+            color: #505f79;
+            margin-bottom: 20px;
+        }
+        
+        .learn-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .learn-more i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .learn-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--gradient);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--white);
+            letter-spacing: -1px;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .company-info {
+            margin-top: 20px;
+            color: #a5adba;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .company-info strong {
+            color: var(--white);
+        }
+        
+        .company-info a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .company-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #a5adba;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a5adba;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 0;
+            }
+            
+            nav li {
+                margin: 0;
+            }
+            
+            .cta-button {
+                padding: 8px 16px;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                margin-bottom: 60px;
+                max-width: 300px;
+            }
+            
+            .step:not(:last-child):after {
+                display: none;
+            }
+            
+            .team-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .company-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo_saedge.png" alt="SAEDGE Logo" style="max-width: 50px; height: auto;">
+                <div class="logo-text">SAEDGE AI AUTOMATIONS PRIVATE LIMITED</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#industries">Industries</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact" class="cta-button">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Next-Gen Visual Inspection<br>Powered by Edge Technology</h1>
+            <p>SAEDGE leverages edge computing and advanced technology to provide real-time defect detection across multiple industries with greater accuracy and reduced latency.</p>
+            <div class="hero-buttons">
+                <a href="#" class="primary-button" onclick="openModal()">Request a Demo</a>
+                <a href="#features" class="secondary-button">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Demo Request -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Request a Demo</h2>
+            <form id="demoForm" action="mailto:office@saedgeaiautomations.com" method="POST" enctype="text/plain">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="address" placeholder="Your Address" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Innovative Features</h2>
+                <p>SAEDGE represents a significant advancement over existing solutions by offering greater accuracy, reduced latency, and cross-industry adaptability.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Edge-Optimized Algorithm</h3>
+                    <p>Our proprietary core algorithm enables real-time defect detection with minimal latency, optimized specifically for edge devices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Multi-Node Integration</h3>
+                    <p>Our system features a unique architecture that allows seamless integration of multiple inspection nodes across production lines.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>Cross-Industry Adaptability</h3>
+                    <p>Our core algorithm demonstrates versatility by detecting defects across food, healthcare, and FMCG packaging with minimal reconfiguration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-battery-quarter"></i>
+                    </div>
+                    <h3>Low-Resource Operation</h3>
+                    <p>We've achieved significant performance optimizations enabling deployment on affordable edge devices while maintaining high detection accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Low-Latency Processing</h3>
+                    <p>Our hybrid approach performs critical detection at the edge while leveraging cloud capabilities for data storage and advanced analytics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Cost-Effective for MSMEs</h3>
+                    <p>Our solution makes advanced visual inspection accessible to MSMEs, addressing a substantial market gap where existing solutions are prohibitively expensive.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How SAEDGE Works</h2>
+                <p>Our streamlined process ensures seamless implementation and operation of the visual inspection system.</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Camera Setup</h3>
+                    <p>High-resolution cameras are positioned at critical inspection points on your production line.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Edge Processing</h3>
+                    <p>Our edge devices process images in real-time using our proprietary algorithm.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Defect Detection</h3>
+                    <p>The system instantly identifies and flags defects with high precision.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Data Analysis</h3>
+                    <p>Advanced analytics provide insights to optimize your manufacturing process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Team</h2>
+                <p>The visionary leaders driving innovation in automated visual inspection technology.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="founder-photo.jpg" alt="Dr. Vivek Chaturvedi" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 200 200\'%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'100\' fill=\'%23f8f8f8\'/%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'95\' fill=\'none\' stroke=\'%23ff6600\' stroke-width=\'3\'/%3E%3Ccircle cx=\'100\' cy=\'80\' r=\'25\' fill=\'%23ddd\'/%3E%3Cpath d=\'M100 105 Q85 105 75 115 Q70 120 70 130 L130 130 Q130 120 125 115 Q115 105 100 105\' fill=\'%23ddd\'/%3E%3C/svg%3E';">
+                        <div class="photo-overlay">
+                            <div class="social-links">
+                                <a href="#" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="mailto:vivekchaturvedi@saedgeaiautomations.com">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Dr. Vivek Chaturvedi</h3>
+                        <p class="member-title">Founder & Managing Director</p>
+                        <p class="member-bio">Visionary leader with extensive experience in technology and automation solutions. Passionate about bringing cutting-edge automation solutions to manufacturing industries.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="cofounder-photo.jpg" alt="Lomin Joy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 200 200\'%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'100\' fill=\'%23f8f8f8\'/%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'95\' fill=\'none\' stroke=\'%23ff6600\' stroke-width=\'3\'/%3E%3Ccircle cx=\'100\' cy=\'80\' r=\'25\' fill=\'%23ddd\'/%3E%3Cpath d=\'M100 105 Q85 105 75 115 Q70 120 70 130 L130 130 Q130 120 125 115 Q115 105 100 105\' fill=\'%23ddd\'/%3E%3C/svg%3E';">
+                        <div class="photo-overlay">
+                            <div class="social-links">
+                                <a href="#" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="mailto:lominjoy@saedgeaiautomations.com">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Lomin Joy</h3>
+                        <p class="member-title">Co-Founder & Director</p>
+                        <p class="member-bio">Technical expert specializing in systems and automation solutions. Dedicated to developing robust, scalable automation systems for industrial applications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries" id="industries">
+        <div class="container">
+            <div class="section-header">
+                <h2>Industries We Serve</h2>
+                <p>Our cross-industry adaptability makes SAEDGE the perfect solution for various manufacturing environments.</p>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-card">
+                    <div class="industry-image">
+                        <i class="fas fa-utensils" style="font-size: 80px; color: #FF5630;"></i>
+                    </div>
+                    <div class="industry-content">
+                        <h3>Food & Beverage</h3>
+                        <p>Detect contamination, packaging defects, and ensure consistent product quality in high-speed food production lines.</p>
+                        <a href="#" class="learn-more">
+                            Learn more
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="industry-card">
+                    <div class="industry-image">
+                        <i class="fas fa-first-aid" style="font-size: 80px; color: #36B37E;"></i>
+                    </div>
+                    <div class="industry-content">
+                        <h3>Healthcare Products</h3>
+                        <p>Ensure the highest standards for medical devices, pharmaceutical packaging, and healthcare consumables.</p>
+                        <a href="#" class="learn-more">
+                            Learn more
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="industry-card">
+                    <div class="industry-image">
+                        <i class="fas fa-box-open" style="font-size: 80px; color: #0052CC;"></i>
+                    </div>
+                    <div class="industry-content">
+                        <h3>FMCG Packaging</h3>
+                        <p>Identify packaging defects, label misalignments, and seal integrity issues in consumer goods manufacturing.</p>
+                        <a href="#" class="learn-more">
+                            Learn more
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Ready to Transform Your Quality Control?</h2>
+            <p>Schedule a demonstration to see how SAEDGE can improve your production line's efficiency and product quality.</p>
+            <a href="#" class="primary-button" onclick="openModal()">Request a Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">Sharda Ann Edge AI Automations </div>
+                    <p>Automatic Visual Inspection System powered by edge computing and advanced technology for real-time defect detection.</p>
+                    <div class="company-info">
+                        <strong>SAEDGE AI AUTOMATIONS PRIVATE LIMITED</strong><br>
+                        3/1433 V Square, Opp ITI, Ltd,<br>
+                        NH 544, Kanjikode, Palakkad-678623, Kerala<br>
+                        <strong>CIN:</strong> U72100KL2025PTC094947<br><br>
+                        <strong>Email:</strong> <a href="mailto:office@saedgeaiautomations.com">office@saedgeaiautomations.com</a><br>
+                        <strong>Phone:</strong> <a href="tel:+919740654289">+91 97406 54289</a><br>
+                        <strong>Web:</strong> <a href="https://saedgeaiautomations.com" target="_blank">saedgeaiautomations.com</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="mailto:office@saedgeaiautomations.com">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#">SAEDGE Core</a></li>
+                        <li><a href="#">SAEDGE Enterprise</a></li>
+                        <li><a href="#">SAEDGE Cloud</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SHARDA ANN EDGE AI AUTOMATIONS PRIVATE LIMITED. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById('demoModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('demoModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('demoModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
