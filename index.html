@@ -196,76 +196,89 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
         
-        /* Modal Styles */
-        .modal {
+        /* Contact Info Section */
+        .contact-info {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
+            padding: 60px 0;
             background-color: var(--white);
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
+            text-align: center;
         }
         
-        .modal-content h2 {
-            font-size: 24px;
-            color: var(--dark);
-            margin-bottom: 20px;
+        .contact-info.active {
+            display: block;
         }
         
-        .modal-content form {
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .contact-heading {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        
+        .contact-details {
             display: flex;
             flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 15px;
         }
         
-        .modal-content input,
-        .modal-content textarea {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(44, 106, 160, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
         
-        .modal-content textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .modal-content button {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .modal-content button:hover {
-            background-color: var(--secondary);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
+        .contact-icon i {
             font-size: 24px;
-            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        .contact-text {
+            text-align: left;
+        }
+        
+        .contact-text h3 {
+            font-size: 20px;
             color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, .contact-text a {
+            font-size: 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+        
+        .contact-note {
+            font-size: 16px;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: 10px;
         }
         
         /* About Us Section */
@@ -740,7 +753,7 @@
             }
             
             .hero {
-                padding: 350px 0 80px;
+                padding: 180px 0 80px;
             }
             
             .hero h1 {
@@ -783,6 +796,15 @@
             .company-info {
                 text-align: center;
             }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-text {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -813,8 +835,47 @@
             <h1>Advanced Visual Inspection Powered by Edge AI Technology</h1>
             <p>SAEDGE leverages edge computing and AI to provide real-time defect detection across multiple industries with precision and efficiency.</p>
             <div class="hero-buttons">
-                <a href="#" class="primary-button" onclick="openModal()">Request a Demo</a>
+                <a href="#" class="primary-button" onclick="showContactInfo(event)">Request a Demo</a>
                 <a href="#features" class="secondary-button">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info" id="contact-info">
+        <div class="contact-container">
+            <h2 class="contact-heading">Contact Us for a Demo</h2>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:office@saedgeaiautomations.com">office@saedgeaiautomations.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Call Us</h3>
+                        <p><a href="tel:+919740654289">+91 97406 54289</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Visit Us</h3>
+                        <p>3/1433 V Square, Opp ITI, Ltd,<br>NH 544, Kanjikode, Palakkad-678623, Kerala</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-note">
+                <p>Reach out to us via email or phone to schedule a demonstration of our advanced visual inspection system. Our team will get back to you within 24 hours to discuss your specific needs and arrange a convenient time for a demo.</p>
             </div>
         </div>
     </section>
@@ -843,21 +904,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Modal for Demo Request -->
-    <div class="modal" id="demoModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2>Request a Demo</h2>
-            <form id="demoForm">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <input type="text" name="company" placeholder="Company Name" required>
-                <textarea name="message" placeholder="How can we help you?" required></textarea>
-                <button type="submit">Submit Request</button>
-            </form>
-        </div>
-    </div>
 
     <!-- Features Section -->
     <section class="features" id="features">
@@ -956,8 +1002,8 @@
                 <div class="team-member">
                     <div class="member-photo">
                         <div class="photo-placeholder" style="width: 150px; height: 150px; border-radius: 50%; background: #e6f2ff; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-    <img src="founder-photo.jpg" alt="Founder Photo" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover;">
-</div>
+                            <img src="founder-photo.jpg" alt="Founder Photo" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover;">
+                        </div>
                         <div class="photo-overlay">
                             <div class="social-links">
                                 <a href="#" target="_blank">
@@ -979,8 +1025,8 @@
                 <div class="team-member">
                     <div class="member-photo">
                        <div class="photo-placeholder" style="width: 150px; height: 150px; border-radius: 50%; background: #e6f2ff; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-    <img src="cofounder-photo.jpg" alt="Co-Founder Photo" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover;">
-</div>
+                            <img src="cofounder-photo.jpg" alt="Co-Founder Photo" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover;">
+                        </div>
                         <div class="photo-overlay">
                             <div class="social-links">
                                 <a href="#" target="_blank">
@@ -1072,7 +1118,7 @@
         <div class="container">
             <h2>Ready to Transform Your Quality Control?</h2>
             <p>Schedule a demonstration to see how SAEDGE can improve your production line's efficiency and product quality.</p>
-            <a href="#" class="primary-button" onclick="openModal()">Request a Demo</a>
+            <a href="#" class="primary-button" onclick="showContactInfo(event)">Request a Demo</a>
         </div>
     </section>
 
@@ -1128,27 +1174,15 @@
     </footer>
 
     <script>
-        function openModal() {
-            document.getElementById('demoModal').style.display = 'flex';
+        function showContactInfo(event) {
+            event.preventDefault();
+            document.getElementById('contact-info').classList.add('active');
+            
+            // Scroll to the contact info section
+            document.getElementById('contact-info').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
         }
-
-        function closeModal() {
-            document.getElementById('demoModal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('demoModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        // Form submission handling
-        document.getElementById('demoForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your demo request. We will contact you shortly.');
-            closeModal();
-        });
     </script>
 </body>
-</html> 
+</html>
