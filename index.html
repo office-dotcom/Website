@@ -929,18 +929,19 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .member-avatar {
+        .member-photo {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: var(--gradient);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 34px;
-            font-weight: 700;
             margin: 0 auto 20px;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .member-info h3 {
@@ -1121,7 +1122,7 @@
     <header>
         <div class="container nav-container">
             <div class="logo">
-                <img src="assets/logo-saedge.png" alt="SAEDGE AI Automations Logo">
+                <img src="logo_saedge.png" alt="SAEDGE AI Automations Logo">
                 <div class="logo-text">SAEDGE AI<span>AUTOMATIONS PRIVATE LIMITED</span></div>
             </div>
             <nav>
@@ -1140,7 +1141,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
-            <span class="hero-tag">IIT PALAKKAD INCUBATED &middot; EDGE AI MACHINE VISION</span>
+            <span class="hero-tag">EDGE AI MACHINE VISION</span>
             <h1>Machine Vision for Indian Manufacturing</h1>
             <p>A portfolio of machine-vision systems built on one proprietary Edge AI engine. Real-time defect detection that runs on-device, offline, at a fraction of incumbent cost.</p>
             <div class="hero-stats">
@@ -1160,7 +1161,7 @@
     <div class="supported-by">
         <div class="container">
             <span>Supported By</span>
-            <img src="assets/logo-iptif.png" alt="IIT Palakkad Technology IHub Foundation">
+            <img src="logo-iptif.png" alt="IIT Palakkad Technology IHub Foundation">
         </div>
     </div>
 
@@ -1384,7 +1385,7 @@
             </div>
             <div class="flagship-grid">
                 <div class="flagship-card">
-                    <div class="flagship-photo"><img src="assets/product-avis.png" alt="AVIS - Automated Visual Inspection System"></div>
+                    <div class="flagship-photo"><img src="product-avis.png" alt="AVIS - Automated Visual Inspection System"></div>
                     <div class="flagship-body">
                         <span class="badge">Pilot Completed</span>
                         <h3>AVIS</h3>
@@ -1399,7 +1400,7 @@
                     </div>
                 </div>
                 <div class="flagship-card">
-                    <div class="flagship-photo"><img src="assets/product-autoqc.png" alt="AutoQC - Automated Quality Control System"></div>
+                    <div class="flagship-photo"><img src="product-autoqc.png" alt="AutoQC - Automated Quality Control System"></div>
                     <div class="flagship-body">
                         <span class="badge">Pilot Completed</span>
                         <h3>AutoQC</h3>
@@ -1433,7 +1434,7 @@
             </div>
             <div class="spotlight-wrap">
                 <div class="spotlight-photo">
-                    <img src="assets/product-ai-learning-kit-wired.jpg" alt="SAEDGE AI Learning Kit with sensors, actuators and drive components">
+                    <img src="product-ai-learning-kit-wired.jpg" alt="SAEDGE AI Learning Kit with sensors, actuators and drive components">
                 </div>
                 <div class="spotlight-text">
                     <h3>Learn by building, not memorising</h3>
@@ -1494,7 +1495,7 @@
             </div>
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="member-avatar">VC</div>
+                    <div class="member-photo"><img src="founder-photo.jpg" alt="Dr. Vivek Chaturvedi"></div>
                     <div class="member-info">
                         <h3>Dr. Vivek Chaturvedi</h3>
                         <p class="member-title">Founder &amp; Director</p>
@@ -1504,7 +1505,7 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-avatar">LJ</div>
+                    <div class="member-photo"><img src="cofounder-photo.jpg" alt="Lomin Joy"></div>
                     <div class="member-info">
                         <h3>Lomin Joy</h3>
                         <p class="member-title">Co-Founder &amp; Director</p>
@@ -1571,7 +1572,7 @@
                 <div class="footer-column">
                     <h4>Supported By</h4>
                     <div class="footer-supported">
-                        <img src="assets/logo-iptif.png" alt="IIT Palakkad Technology IHub Foundation">
+                        <img src="logo-iptif.png" alt="IIT Palakkad Technology IHub Foundation">
                     </div>
                     <span style="font-size: 12px; color: #a5adba; display:block; margin-top: 8px;">IIT Palakkad Technology IHub Foundation</span>
                 </div>
